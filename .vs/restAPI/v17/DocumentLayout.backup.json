@@ -1,0 +1,171 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{51C37E6B-3F48-4230-A7A9-2BD19A4E5BA9}|appView\\appView.csproj|d:\\huykhoi\\fis\\net\\restapi\\appview\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{51C37E6B-3F48-4230-A7A9-2BD19A4E5BA9}|appView\\appView.csproj|solutionrelative:appview\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{51C37E6B-3F48-4230-A7A9-2BD19A4E5BA9}|appView\\appView.csproj|d:\\huykhoi\\fis\\net\\restapi\\appview\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{51C37E6B-3F48-4230-A7A9-2BD19A4E5BA9}|appView\\appView.csproj|solutionrelative:appview\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA76ACD4-0F21-453E-A3F0-BC57819A381E}|appData\\appData.csproj|d:\\huykhoi\\fis\\net\\restapi\\appdata\\models\\restapi_employeemanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA76ACD4-0F21-453E-A3F0-BC57819A381E}|appData\\appData.csproj|solutionrelative:appdata\\models\\restapi_employeemanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA76ACD4-0F21-453E-A3F0-BC57819A381E}|appData\\appData.csproj|d:\\huykhoi\\fis\\net\\restapi\\appdata\\repository\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA76ACD4-0F21-453E-A3F0-BC57819A381E}|appData\\appData.csproj|solutionrelative:appdata\\repository\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|d:\\huykhoi\\fis\\net\\restapi\\appapi\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|solutionrelative:appapi\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|d:\\huykhoi\\fis\\net\\restapi\\appapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|solutionrelative:appapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|d:\\huykhoi\\fis\\net\\restapi\\appapi\\appapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|solutionrelative:appapi\\appapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|d:\\huykhoi\\fis\\net\\restapi\\appapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C103DDA2-EDB0-45B3-B7DC-AC75CD3F4157}|appAPI\\appAPI.csproj|solutionrelative:appapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 583,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 156,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appView\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "appView\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appView\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "appView\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC4AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-17T07:07:15.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appView\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "appView\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appView\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "appView\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAAAJwAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-17T06:51:10.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "appAPI\\Controllers\\BaseController.cs",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "appAPI\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAmwHUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T04:36:12.161Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appAPI.csproj",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\appAPI.csproj",
+              "RelativeDocumentMoniker": "appAPI\\appAPI.csproj",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\appAPI.csproj",
+              "RelativeToolTip": "appAPI\\appAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-17T04:34:15.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\Program.cs",
+              "RelativeDocumentMoniker": "appAPI\\Program.cs",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\Program.cs",
+              "RelativeToolTip": "appAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T04:16:20.619Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "restAPI_EmployeeManagementContext.cs",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appData\\Models\\restAPI_EmployeeManagementContext.cs",
+              "RelativeDocumentMoniker": "appData\\Models\\restAPI_EmployeeManagementContext.cs",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appData\\Models\\restAPI_EmployeeManagementContext.cs",
+              "RelativeToolTip": "appData\\Models\\restAPI_EmployeeManagementContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T04:16:06.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BaseRepository.cs",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appData\\Repository\\BaseRepository.cs",
+              "RelativeDocumentMoniker": "appData\\Repository\\BaseRepository.cs",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appData\\Repository\\BaseRepository.cs",
+              "RelativeToolTip": "appData\\Repository\\BaseRepository.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAIwJYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T04:15:54.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "appAPI\\appsettings.json",
+              "ToolTip": "D:\\HuyKhoi\\FIS\\Net\\restAPI\\appAPI\\appsettings.json",
+              "RelativeToolTip": "appAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-17T04:06:10.928Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,390 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container mt-5">
+    <h1 class="mb-4">Employee List</h1>
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" id="btn-add-new" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Thêm mới</button>
+    </div>
+    <table id="tableData" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Họ tên</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
+                <th>Ngày tuyển dụng</th>
+                <th>Sđt</th>
+                <th>Email</th>
+                <th>Vị trí</th>
+                <th>Phòng ban</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="employee-table-body">
+            <!-- Data will be dynamically loaded here -->
+        </tbody>
+    </table>
+    <div class="pagination">
+        <button id="prevPage" class="btn btn-primary">Previous</button>
+        <button id="nextPage" class="btn btn-primary">Next</button>
+    </div>
+</div>
+
+<!-- Modal Form for Adding New Employee -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEmployeeModalLabel">Thêm mới nhân viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="employee-form">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label">Họ</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label">Tên</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label">Giới tính</label>
+                            <select class="form-control" id="gender" required>
+                                <option value="Male">Nam</option>
+                                <option value="Female">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dateOfBirth" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="dateOfBirth" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="hireDate" class="form-label">Ngày tuyển dụng</label>
+                            <input type="date" class="form-control" id="hireDate" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phoneNumber" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="position" class="form-label">Vị trí</label>
+                            <select class="form-control" id="position" required>
+                                <!-- Options will be dynamically populated -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="department" class="form-label">Phòng ban</label>
+                            <select class="form-control" id="department" required>
+                                <!-- Options will be dynamically populated -->
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveEmployee">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container position-fixed top-0 end-0 p-3 bg-primary" style="z-index: 1050;">
+    <!-- Toast -->
+    <div id="toastMessage" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div id="toastBody" class="toast-body">
+                <!-- Message will be inserted dynamically -->
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+                const apiBaseUrl = "https://localhost:7133/api/v1/Employee";
+        const positionApiUrl = "https://localhost:7133/api/v1/Position";
+        const departmentApiUrl = "https://localhost:7133/api/v1/Department";
+        const pageSize = 10;
+
+        let employeeId = null;
+        let totalPages = 1;
+        let currentPage = 1;
+        let positions = [];
+        let departments = [];
+
+        $(document).ready(function () {
+          // Load các vị trí và phòng ban, sau đó tải danh sách nhân viên
+          loadPositionsAndDepartments(() => loadEmployeeList());
+
+          // Load danh sách vị trí và phòng ban cho dropdown
+          loadPositionList();
+          loadDepartmentList();
+
+          // Các sự kiện phân trang
+          $('#nextPage').click(() => changePage(1));
+          $('#prevPage').click(() => changePage(-1));
+
+          // Sự kiện lưu nhân viên
+          $('#saveEmployee').click(() => addOrUpdate(employeeId));
+
+        $('#addEmployeeModal').on('hidden.bs.modal', function () {
+            // Đặt lại employeeId về null khi modal đóng
+            employeeId = null;
+            clearModalData();
+        });
+
+        });
+
+        // Hàm thay đổi trang
+        function changePage(increment) {
+          if ((increment > 0 && currentPage < totalPages) || (increment < 0 && currentPage > 1)) {
+            currentPage += increment;
+            loadEmployeeList();
+          }
+        }
+
+        // Hàm tải vị trí và phòng ban
+        function loadPositionsAndDepartments(callback) {
+          $.when(
+            $.get(positionApiUrl).done(data => positions = data),
+            $.get(departmentApiUrl).done(data => departments = data)
+          ).done(callback);
+        }
+
+        // Hàm tải danh sách nhân viên
+        function loadEmployeeList() {
+          $.ajax({
+            url: `${apiBaseUrl}/paging?pageNumber=${currentPage}&pageSize=${pageSize}`,
+            method: "GET",
+            success: function (response) {
+              const data = response?.data || [];
+              totalPages = response?.totalPages;
+              const tableBody = $("#employee-table-body").empty();
+
+              if (data.length) {
+                data.forEach((employee, index) => {
+                  tableBody.append(createEmployeeRow(employee, index + 1));
+                });
+              } else {
+                tableBody.append(`<tr><td colspan="11">No records found.</td></tr>`);
+              }
+            },
+            error: function () {
+              alert("Failed to load data. Please try again later.");
+            }
+          });
+        }
+
+        // Hàm tạo HTML cho mỗi dòng nhân viên
+        function createEmployeeRow(employee, index) {
+          const positionName = getPositionName(employee.positionId);
+          const departmentName = getDepartmentName(employee.departmentId);
+          return `
+            <tr>
+              <td>${index}</td>
+              <td>${employee.firstName} ${employee.lastName}</td>
+              <td>${employee.gender}</td>
+              <td>${formatDate(employee.dateOfBirth)}</td>
+              <td>${formatDate(employee.hireDate)}</td>
+              <td>${employee.phoneNumber}</td>
+              <td>${employee.email}</td>
+              <td>${positionName}</td>
+              <td>${departmentName}</td>
+              <td>${formatDate(employee.createdDate)}</td>
+              <td>
+               
+
+                <div class='d-flex justify-content-center gap-2'>
+                                        <a title='Cập nhật' onclick='editItem(${employee.employeeId})' class='me-2 btn_manage'>
+                                            <span class='svg-icon-success svg-icon svg-icon-1 svg_teh009'>
+                                                <span class='svg-icon-primary svg-icon svg-icon-1'>
+                                                    <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                        <path opacity='0.3' fill-rule='evenodd' clip-rule='evenodd' d='M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z' fill='currentColor'></path>
+                                                        <path d='M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z' fill='currentColor'></path>
+                                                        <path d='M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z' fill='currentColor'></path>
+                                                    </svg>
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <a title='Huỷ đặt' onclick='deleteItem(${employee.employeeId})' class='me-2 btn_manage'>
+                                            <span class='svg-icon-danger svg-icon svg-icon-1'>
+                                                <svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                                                    <path d='M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z' fill='currentColor'></path>
+                                                    <path opacity='0.5' d='M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z' fill='currentColor'></path>
+                                                    <path opacity='0.5' d='M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z' fill='currentColor'></path>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div>
+              </td>
+            </tr>`;
+        }
+
+        // Hàm thêm hoặc cập nhật nhân viên
+        function addOrUpdate(employeeId = null) {
+          const employeeData = {
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            gender: $('#gender').val(),
+            dateOfBirth: $('#dateOfBirth').val(),
+            hireDate: $('#hireDate').val(),
+            phoneNumber: $('#phoneNumber').val(),
+            email: $('#email').val(),
+            positionId: $('#position').val(),
+            departmentId: $('#department').val()
+          };
+
+          const url = employeeId ? `${apiBaseUrl}/${employeeId}` : apiBaseUrl;
+          const method = employeeId ? 'PUT' : 'POST';
+
+          console.log('Data to be sent:', employeeData);
+
+          $.ajax({
+            url: url,
+            method: method,
+            data: JSON.stringify(employeeData),
+            contentType: 'application/json',
+            success: function(response) {
+              $('#addEmployeeModal').modal('hide');
+              showToast(response.message || `${method === 'POST' ? 'Thêm' : 'Cập nhật'} thành công!`);
+              loadEmployeeList(); // Làm mới danh sách
+              employeeId = null; // Reset ID sau khi thao tác xong
+            },
+            error: function() {
+              showToast('Có lỗi xảy ra!', 'danger');
+            }
+          });
+        }
+
+        // Hàm xóa nhân viên
+        function deleteEmployee(employeeId) {
+          if (confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
+            $.ajax({
+              url: `${apiBaseUrl}/${employeeId}`,
+              method: 'DELETE',
+              success: function() {
+                showToast('Xóa nhân viên thành công!', 'success');
+                loadEmployeeList(); // Làm mới danh sách
+              },
+              error: function() {
+                showToast('Có lỗi xảy ra khi xóa!', 'danger');
+              }
+            });
+          }
+        }
+
+        function editItem(id) {
+            employeeId = id; // Cập nhật employeeId khi gọi editItem
+
+            // Sử dụng Ajax để lấy thông tin nhân viên từ API
+            $.ajax({
+                url: `${apiBaseUrl}/${employeeId}`,
+                method: 'GET',
+                success: function(data) {
+                    // Điền thông tin nhân viên vào form trong modal
+                    $('#firstName').val(data.firstName);
+                    $('#lastName').val(data.lastName);
+                    $('#gender').val(data.gender);
+                    $('#dateOfBirth').val(formatDate(data.dateOfBirth));
+                    $('#hireDate').val(formatDate(data.hireDate));
+                    $('#phoneNumber').val(data.phoneNumber);
+                    $('#email').val(data.email);
+                    $('#position').val(data.positionId); // Cập nhật vị trí
+                    $('#department').val(data.departmentId); // Cập nhật phòng ban
+
+                    // Mở modal
+                    $('#addEmployeeModal').modal('show');
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi tải thông tin nhân viên.');
+                }
+            });
+        }
+
+        // Hàm xử lý sự kiện xóa nhân viên
+        function deleteItem(id) {
+          deleteEmployee(id); // Gọi hàm xóa
+        }
+
+        // Hàm lấy tên vị trí
+        function getPositionName(positionId) {
+          const position = positions.find(p => p.positionId === positionId);
+          return position ? position.positionName : "Unknown";
+        }
+
+        // Hàm lấy tên phòng ban
+        function getDepartmentName(departmentId) {
+          const department = departments.find(d => d.departmentId === departmentId);
+          return department ? department.departmentName : "Unknown";
+        }
+
+        // Hàm định dạng ngày tháng
+        function formatDate(dateString) {
+          const date = new Date(dateString);
+          return isNaN(date.getTime()) ? "Invalid Date" : date.toLocaleDateString();
+        }
+
+        // Hàm load danh sách vị trí
+        function loadPositionList() {
+          $.get(positionApiUrl, function(response) {
+            const positionSelect = $('#position').empty();
+            response.forEach(position => positionSelect.append(`<option value="${position.positionId}">${position.positionName}</option>`));
+          });
+        }
+
+        // Hàm load danh sách phòng ban
+        function loadDepartmentList() {
+          $.get(departmentApiUrl, function(response) {
+            const departmentSelect = $('#department').empty();
+            response.forEach(department => departmentSelect.append(`<option value="${department.departmentId}">${department.departmentName}</option>`));
+          });
+        }
+
+        // Hàm hiển thị thông báo
+        function showToast(message, type = 'success') {
+          // Tạo và hiển thị thông báo
+          const toast = $(`<div class="toast toast-${type}" role="alert">${message}</div>`);
+          $('body').append(toast);
+          toast.fadeIn().delay(3000).fadeOut(() => toast.remove());
+        }
+
+        function clearModalData() {
+          $('#firstName').val('');
+          $('#lastName').val('');
+          $('#dateOfBirth').val('');
+          $('#hireDate').val('');
+          $('#phoneNumber').val('');
+          $('#email').val('');
+          $('#position').val('');
+          $('#department').val('');
+
+          $('#dateOfBirthDisplay').text('');
+          $('#hireDateDisplay').text('');
+        }
+
+    </script>
+ }
