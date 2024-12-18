@@ -273,3 +273,4 @@ D:\HuyKhoi\FIS\Net\restAPI\appAPI\bin\Debug\net6.0\appData.pdb
 D:\HuyKhoi\FIS\Net\restAPI\appAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\HuyKhoi\FIS\Net\restAPI\appAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\HuyKhoi\FIS\Net\restAPI\appAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\HuyKhoi\FIS\Net\restAPI\appAPI\obj\Debug\net6.0\appAPI.sourcelink.json

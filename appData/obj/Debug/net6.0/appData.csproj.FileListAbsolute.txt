@@ -12,3 +12,4 @@ D:\HuyKhoi\FIS\Net\restAPI\appData\obj\Debug\net6.0\refint\appData.dll
 D:\HuyKhoi\FIS\Net\restAPI\appData\obj\Debug\net6.0\appData.pdb
 D:\HuyKhoi\FIS\Net\restAPI\appData\obj\Debug\net6.0\appData.genruntimeconfig.cache
 D:\HuyKhoi\FIS\Net\restAPI\appData\obj\Debug\net6.0\ref\appData.dll
+D:\HuyKhoi\FIS\Net\restAPI\appData\obj\Debug\net6.0\appData.sourcelink.json

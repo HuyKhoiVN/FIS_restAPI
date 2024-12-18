@@ -1,0 +1,631 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<style>
+    .svg-icon.svg-icon-danger {
+        color: var(--bs-text-danger);
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    #tableData th, #tableData td {
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+        #tableData th:nth-child(1),
+        #tableData td:nth-child(1) {
+            width: 5%;
+        }
+
+        #tableData th:nth-child(2),
+        #tableData td:nth-child(2) {
+            width: 15%;
+        }
+
+        #tableData th:nth-child(3),
+        #tableData td:nth-child(3) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(4),
+        #tableData td:nth-child(4) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(5),
+        #tableData td:nth-child(5) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(6),
+        #tableData td:nth-child(6) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(7),
+        #tableData td:nth-child(7) {
+            width: 15%;
+        }
+
+        #tableData th:nth-child(8),
+        #tableData td:nth-child(8) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(9),
+        #tableData td:nth-child(9) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(10),
+        #tableData td:nth-child(10) {
+            width: 10%;
+        }
+
+        #tableData th:nth-child(11),
+        #tableData td:nth-child(11) {
+            width: 15%;
+        }
+</style>
+<div class="container mt-5">
+    <h1 class="mb-4">Employee List</h1>
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" id="btn-add-new" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Thêm mới</button>
+    </div>
+    <table id="tableData" class="table table-hover table-rounded table-row-bordered gy-3 gs-3 dataTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Họ tên</th>
+                <th>Giới tính</th>
+                <th>Ngày sinh</th>
+                <th>Ngày tuyển dụng</th>
+                <th>Sđt</th>
+                <th>Email</th>
+                <th>Vị trí</th>
+                <th>Phòng ban</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="employee-table-body">
+            <!-- Data will be dynamically loaded here -->
+        </tbody>
+    </table>
+    <div class="paging-area">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li id="prevPage" class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li id="nextPage" class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEmployeeModalLabel">Thêm mới nhân viên</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="employee-form">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="firstName" class="form-label">Họ</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                            <span class="text-danger" id="error-firstName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="lastName" class="form-label">Tên</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                            <span class="text-danger" id="error-lastName"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="gender" class="form-label">Giới tính</label>
+                            <select class="form-control" id="gender" required>
+                                <option value="">Chọn giới tính</option>
+                                <option value="Male">Nam</option>
+                                <option value="Female">Nữ</option>
+                            </select>
+                            <span class="text-danger" id="error-gender"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="dateOfBirth" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="dateOfBirth" required>
+                            <span class="text-danger" id="error-dateOfBirth"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="hireDate" class="form-label">Ngày tuyển dụng</label>
+                            <input type="date" class="form-control" id="hireDate" required>
+                            <span class="text-danger" id="error-hireDate"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phoneNumber" required>
+                            <span class="text-danger" id="error-phoneNumber"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <span class="text-danger" id="error-email"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="position" class="form-label">Vị trí</label>
+                            <select class="form-control" id="position" required>
+                                <option value="">Chọn vị trí</option>
+                                <!-- Options sẽ được thêm động -->
+                            </select>
+                            <span class="text-danger" id="error-position"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="department" class="form-label">Phòng ban</label>
+                            <select class="form-control" id="department" required>
+                                <option value="">Chọn phòng ban</option>
+                                <!-- Options sẽ được thêm động -->
+                            </select>
+                            <span class="text-danger" id="error-department"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="saveEmployee">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
+    <div class="toast-header">
+        <div class="rounded mr-2" alt="..."/>
+        <strong id="toastTitle" class="mr-auto">Bootstrap</strong>
+        <small class="text-muted">Just now</small>
+    </div>
+    <div id="toastMsg" class="toast-body">
+        Hello, world! This is a toast message.
+    </div>
+</div>
+
+<div id="modalConfirm" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xoá nhân viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn muốn xoá nhân viên này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnModalAction" class="btn btn-danger">Xoá</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const apiBaseUrl = "https://localhost:7133/api/v1/Employee";
+        const positionApiUrl = "https://localhost:7133/api/v1/Position";
+        const departmentApiUrl = "https://localhost:7133/api/v1/Department";
+        const pageSize = 1;
+
+        let employeeId = null;
+        let totalPages = 1;
+        let currentPage = 1;
+        let positions = [];
+        let departments = [];
+
+        $(document).ready(function () {
+            loadEmployeeList();
+
+            loadPositionList();
+            loadDepartmentList();
+
+            // Các sự kiện phân trang
+            $('#nextPage').click(() => changePage(1));
+            $('#prevPage').click(() => changePage(-1));
+
+            // $('#saveEmployee').click(() => addOrUpdate(employeeId));
+
+            $("#saveEmployee").click(function (e) {
+                if (!validateForm()) {
+                    e.preventDefault(); // Ngăn chặn hành động mặc định nếu form không hợp lệ
+                } else {
+                    addOrUpdate(employeeId)
+                }
+            });
+
+            // Gọi hàm validateForm khi các trường mất focus (blur)
+            $("#firstName, #lastName, #dateOfBirth, #hireDate, #phoneNumber, #email").blur(function () {
+                validateForm();
+            });
+
+            $('#addEmployeeModal').on('hidden.bs.modal', function () {
+                // Đặt lại employeeId về null khi modal đóng
+                clearModalData();
+            });
+        });
+
+        function loadEmployeeList() {
+          $.ajax({
+            url: `${apiBaseUrl}/getFullInfor?pageNumber=${currentPage}&pageSize=${pageSize}`,
+            method: "GET",
+            success: function (response) {
+              const data = response?.data || [];
+              totalPages = response?.totalPages;
+              const tableBody = $("#employee-table-body").empty();
+
+              if (data.length) {
+                data.forEach((employee, index) => {
+                  tableBody.append(`
+                    <tr>
+                      <td>${index + 1}</td>
+                      <td>${employee.firstName} ${employee.lastName}</td>
+                      <td>${employee.gender}</td>
+                      <td>${formatDate(employee.dateOfBirth)}</td>
+                      <td>${formatDate(employee.hireDate)}</td>
+                      <td>${employee.phoneNumber}</td>
+                      <td>${employee.email}</td>
+                      <td>${employee.positionName}</td>
+                      <td>${employee.departmentName}</td>
+                      <td>${formatDate(employee.createdDate)}</td>
+                      <td>
+                        <div class='d-flex justify-content-center gap-2'>
+                          <a title='Cập nhật' onclick='editItem(${employee.employeeId})' class='me-2 btn_manage'>
+                            <!-- SVG ICON -->
+                          </a>
+                          <a title='Huỷ đặt' onclick='deleteItem(${employee.employeeId})' class='me-2 btn_manage'>
+                            <!-- SVG ICON -->
+                          </a>
+                        </div>
+                      </td>
+                    </tr>`);
+                });
+              } else {
+                tableBody.append(`<tr><td colspan="11">No records found.</td></tr>`);
+              }
+
+              // Cập nhật giao diện phân trang
+              updatePagination();
+            },
+            error: function () {
+              alert("Failed to load data. Please try again later.");
+            }
+          });
+        }
+
+        function updatePagination() {
+          const pagination = $(".pagination").empty();
+
+          // Nút Previous
+          pagination.append(`
+            <li id="prevPage" class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+              <a class="page-link" href="#">Previous</a>
+            </li>`);
+
+          // Các nút số trang
+          for (let i = 1; i <= totalPages; i++) {
+            pagination.append(`
+              <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#">${i}</a>
+              </li>`);
+          }
+
+          // Nút Next
+          pagination.append(`
+            <li id="nextPage" class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+              <a class="page-link" href="#">Next</a>
+            </li>`);
+
+          // Thêm sự kiện click cho các nút
+          $(".page-item").on("click", function (e) {
+            e.preventDefault();
+            const text = $(this).text();
+
+            if (text === "Previous" && currentPage > 1) {
+              currentPage--;
+            } else if (text === "Next" && currentPage < totalPages) {
+              currentPage++;
+            } else if (!isNaN(text)) {
+              currentPage = parseInt(text);
+            }
+
+            loadEmployeeList();
+          });
+        }
+
+
+        // add or udpate by check employeeId
+        function addOrUpdate(employeeId = null) {
+          const employeeData = {
+            firstName: $('#firstName').val(),
+            lastName: $('#lastName').val(),
+            gender: $('#gender').val(),
+            dateOfBirth: $('#dateOfBirth').val(),
+            hireDate: $('#hireDate').val(),
+            phoneNumber: $('#phoneNumber').val(),
+            email: $('#email').val(),
+            positionId: $('#position').val(),
+            departmentId: $('#department').val()
+          };
+
+          const url = employeeId ? `${apiBaseUrl}/${employeeId}` : apiBaseUrl;
+          const method = employeeId ? 'PUT' : 'POST';
+
+          console.log('Data to be sent:', employeeData);
+
+          $.ajax({
+            url: url,
+            method: method,
+            data: JSON.stringify(employeeData),
+            contentType: 'application/json',
+            success: function(response) {
+              $('#addEmployeeModal').modal('hide');
+              showToast(response.message || `${method === 'POST' ? 'Thêm' : 'Cập nhật'} thành công!`);
+              loadEmployeeList(); // Làm mới danh sách
+              employeeId = null; // Reset ID sau khi thao tác xong
+            },
+            error: function() {
+              showToast('Có lỗi xảy ra!', 'danger');
+            }
+          });
+        }
+
+        function editItem(id) {
+            employeeId = id; // Cập nhật employeeId khi gọi editItem
+
+            // Sử dụng Ajax để lấy thông tin nhân viên từ API
+            $.ajax({
+                url: `${apiBaseUrl}/${employeeId}`,
+                method: 'GET',
+                success: function(data) {
+                    // Điền thông tin nhân viên vào form trong modal
+                    $('#firstName').val(data.firstName);
+                    $('#lastName').val(data.lastName);
+                    $('#gender').val(data.gender);
+                    $('#dateOfBirth').val(data.dateOfBirth.split('T')[0]);
+                    $('#hireDate').val(data.hireDate.split('T')[0]);
+                    $('#phoneNumber').val(data.phoneNumber);
+                    $('#email').val(data.email);
+                    $('#position').val(data.positionId); // Cập nhật vị trí
+                    $('#department').val(data.departmentId); // Cập nhật phòng ban
+
+                    // Mở modal
+                    $('#addEmployeeModal').modal('show');
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi tải thông tin nhân viên.');
+                }
+            });
+        }
+
+        // Hàm xóa nhân viên
+        // function deleteItem(id) {
+        //     showModal({
+        //         title: 'Xoá nhân viên',
+        //         body: `Bạn có muốn xoá nhân viên ?`,
+        //         actionText: 'Xoá',
+        //         actionClass: 'btn-danger',
+        //         onConfirm: function () {
+        //             Gọi Ajax để xóa nhân viên
+        //             $.ajax({
+        //                 url: `${apiBaseUrl}/${id}`,
+        //                 type: 'DELETE',
+        //                 success: function (response) {
+        //                     showToast('Xoá nhân viên' ,'Xóa nhân viên thành công!', 'bg-success');
+        //                     $('#modalConfirm').modal('hide');
+        //                     loadEmployeeList(); Gọi lại function load dữ liệu
+        //                 },
+        //                 error: function (error) {
+        //                     alert('Đã xảy ra lỗi khi xoá nhân viên');
+        //                 }
+        //             });
+        //         }
+        //     });
+        // }
+
+         function deleteItem(employeeId) {
+          if (confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) {
+            $.ajax({
+              url: `${apiBaseUrl}/${employeeId}`,
+              method: 'DELETE',
+              success: function() {
+                showToast('Xóa nhân viên thành công!', 'success');
+                loadEmployeeList(); // Làm mới danh sách
+              },
+              error: function() {
+                showToast('Có lỗi xảy ra khi xóa!', 'danger');
+              }
+            });
+          }
+        }
+
+    </script>
+
+    <script>
+        // Hàm hiển thị modal với nội dung tùy chỉnh
+        function showModal(config) {
+            // Cập nhật nội dung modal
+            $('#modalConfirm .modal-title').text(config.title || 'Xác nhận');
+            $('#modalConfirm .modal-body p').text(config.body || 'Bạn có chắc chắn thực hiện hành động này?');
+
+            const btnModalAction = $('#modalConfirm #btnModalAction');
+            btnModalAction.text(config.actionText || 'Xác nhận');
+            btnModalAction.removeClass('btn-danger btn-secondary btn-primary')
+                .addClass(config.actionClass || 'btn-primary');
+
+            // Lưu callback hành động vào dataset
+            btnModalAction.off('click').on('click', function () {
+                if (typeof config.onConfirm === 'function') {
+                    config.onConfirm();
+                }
+            });
+
+            // Hiển thị modal
+            $('#modalConfirm').modal('show');
+        }
+
+        function showToast(title, message, bgClass = 'bg-primary') {
+            const toast = $('.toast');
+
+            // Cập nhật nội dung và kiểu
+            toast.removeClass('bg-primary bg-danger bg-success bg-warning').addClass(bgClass);
+            $('#toastTitle').text(title);
+            $('#toastMsg').text(message);
+
+            // Hiển thị toast
+            toast.css('display', 'block').toast({ autohide: true, delay: 3000 }).toast('show');
+        }
+
+
+    </script>
+
+    <script>
+        // Hàm load danh sách vị trí
+        function loadPositionList() {
+          $.get(positionApiUrl, function(response) {
+            const positionSelect = $('#position').empty();
+            response.forEach(position => positionSelect.append(`<option value="${position.positionId}">${position.positionName}</option>`));
+          });
+        }
+
+        // Hàm load danh sách phòng ban
+        function loadDepartmentList() {
+          $.get(departmentApiUrl, function(response) {
+            const departmentSelect = $('#department').empty();
+            response.forEach(department => departmentSelect.append(`<option value="${department.departmentId}">${department.departmentName}</option>`));
+          });
+        }
+
+        // Hàm định dạng ngày tháng
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 (Jan = 0)
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Hàm thay đổi trang
+        function changePage(increment) {
+          if ((increment > 0 && currentPage < totalPages) || (increment < 0 && currentPage > 1)) {
+            currentPage += increment;
+            loadEmployeeList();
+          }
+        }
+
+        function clearModalData() {
+            $('#addEmployeeModal :input').val('');
+            $('#addEmployeeModal select').val(1);
+            employeeId = null;
+        }
+
+        // Hàm kiểm tra định dạng email
+        function isValidEmail(email) {
+            const regex = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+            return regex.test(email);
+        }
+
+        // Hàm kiểm tra ngày sinh trên 18 tuổi
+        function isOver18(date) {
+            const today = new Date();
+            const birthDate = new Date(date);
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            return age > 18 || (age === 18 && monthDiff >= 0 && today.getDate() >= birthDate.getDate());
+        }
+
+        // Hàm validate chung
+        function validateForm() {
+            let isValid = true;
+
+            // Validate họ
+            const firstName = $("#firstName").val().trim();
+            if (!firstName) {
+                $("#error-firstName").text("Họ không được để trống.");
+                isValid = false;
+            } else {
+                $("#error-firstName").text("");
+            }
+
+            // Validate tên
+            const lastName = $("#lastName").val().trim();
+            if (!lastName) {
+                $("#error-lastName").text("Tên không được để trống.");
+                isValid = false;
+            } else {
+                $("#error-lastName").text("");
+            }
+
+            // Validate ngày sinh
+            const dateOfBirth = $("#dateOfBirth").val();
+            if (!dateOfBirth) {
+                $("#error-dateOfBirth").text("Ngày sinh không được để trống.");
+                isValid = false;
+            } else if (!isOver18(dateOfBirth)) {
+                $("#error-dateOfBirth").text("Nhân viên phải trên 18 tuổi.");
+                isValid = false;
+            } else {
+                $("#error-dateOfBirth").text("");
+            }
+
+            // Validate ngày tuyển dụng
+            const hireDate = $("#hireDate").val();
+            if (!hireDate) {
+                $("#error-hireDate").text("Ngày tuyển dụng không được để trống.");
+                isValid = false;
+            } else {
+                $("#error-hireDate").text("");
+            }
+
+            // Validate số điện thoại
+            const phoneNumber = $("#phoneNumber").val().trim();
+            if (!phoneNumber) {
+                $("#error-phoneNumber").text("Số điện thoại không được để trống.");
+                isValid = false;
+            } else if (!/^\d{10}$/.test(phoneNumber)) {
+                $("#error-phoneNumber").text("Số điện thoại phải gồm 10 chữ số.");
+                isValid = false;
+            } else {
+                $("#error-phoneNumber").text("");
+            }
+
+            // Validate email
+            const email = $("#email").val().trim();
+            if (!email) {
+                $("#error-email").text("Email không được để trống.");
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                $("#error-email").text("Email không đúng định dạng.");
+                isValid = false;
+            } else {
+                $("#error-email").text("");
+            }
+
+            return isValid;
+        }
+    </script>
+}

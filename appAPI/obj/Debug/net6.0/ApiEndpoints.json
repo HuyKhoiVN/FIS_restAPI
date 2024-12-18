@@ -195,6 +195,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "appAPI.Controllers.EmployeeController",
+    "Method": "GetEmployeesFullInfor",
+    "RelativePath": "api/v1/Employee/getFullInfor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "appAPI.Controllers.BaseController\u00601[[appData.Models.Employee, appData, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
     "Method": "GetPaging",
     "RelativePath": "api/v1/Employee/paging",
